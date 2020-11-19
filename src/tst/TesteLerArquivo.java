@@ -76,5 +76,23 @@ public class TesteLerArquivo {
 		
 		assertEquals(array, parser.getBuffer());
 	}
+	
+	@Test
+	public void TesteLerArquivoVazio() throws ArquivoNaoEncontradoException {
+		Parser parser = new Parser();
+
+		List<List<Integer>> array = new ArrayList<List<Integer>>();
+		
+		parser.lerArquivo("assets/arquivoVazio.out");
+		
+		assertEquals(array, parser.getBuffer());
+	}
+	
+	@Test(expected=ArquivoNaoEncontradoException.class)
+	public void TesteLerArquivoInexistente() throws ArquivoNaoEncontradoException {
+		Parser parser = new Parser();
+		
+		parser.lerArquivo("assets/arquivoInexistente.out");
+	}
 
 }

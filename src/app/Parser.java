@@ -1,35 +1,45 @@
 package app;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+import java.util.Vector;
+
+import expts.ArquivoNaoEncontradoException;
+
 public class Parser {
+	Vector <Vector <Integer>> buffer;
 	
 	public Parser(){
+		buffer = new Vector <Vector <Integer>>();
 	}
 
-	public void lerArquivo(String string) {
+	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
+		Scanner input;
+		try {
+			input = new Scanner(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			throw new ArquivoNaoEncontradoException(path);
+		}
+
+		while(input.hasNextLine()) {
+			
+			String data = input.nextLine();
+			
+			if (data.startsWith("-")) {
+				Vector<Integer> row = new Vector<Integer>();
+				buffer.add(row);
+			}
+			else {
+				buffer.lastElement().add(Integer.parseInt(data));
+			}
+		}
+		
+		input.close();
 		
 	}
 
-	public int[][] getBuffer() {
-		int buffer[][] = {{439, 705, 738, 729, 752, 740, 658, 713, 765, 710},
-	             {470, 828, 760, 668, 884, 721, 720, 802, 777, 735},
-	             {446, 789, 763, 692, 910, 966, 751, 1002, 720, 752},
-	             {457, 852, 739, 710, 763, 838, 761, 763, 742, 699},
-	             {472, 734, 726, 708, 817, 811, 763, 757, 789, 678},
-	             {470, 760, 701, 764, 849, 747, 771, 884, 757, 669},
-	             {462, 737, 714, 729, 788, 836, 687, 772, 694, 776},
-	             {509, 696, 738, 710, 758, 763, 689, 764, 804, 717},
-	             {500, 753, 808, 778, 739, 812, 724, 846, 740, 746},
-	             {493, 740, 717, 728, 839, 722, 736, 810, 703, 756},
-	             {466, 1013, 748, 773, 809, 730, 727, 787, 771, 710},
-	             {514, 1060, 771, 754, 766, 903, 792, 930, 829, 856},
-	             {506, 784, 977, 904, 872, 774, 875, 811, 774, 756},
-	             {676, 876, 905, 762, 929, 825, 728, 853, 822, 798},
-	             {919, 804, 783, 769, 760, 908, 887, 802, 783, 797},
-	             {897, 896, 805, 839, 914, 834, 853, 996, 913, 822},
-	             {862, 846, 970, 999, 982, 1003, 848, 819, 871, 925},
-	             {865, 810, 791, 865, 830, 851, 860, 847, 855, 892},
-	             {835, 875, 866, 875, 820, 833, 928, 901, 870, 836},
-	             {874, 896, 809, 827, 962, 849, 873, 907, 845, 896}};
+	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;
 	}
 	

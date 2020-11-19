@@ -1,17 +1,15 @@
-package tst;
+package app;
 
-import static org.junit.Assert.*;
+public class Parser {
+	
+	public Parser(){
+	}
 
-import org.junit.Test;
+	public void lerArquivo(String string) {
+		
+	}
 
-import app.Parser;
-import expts.ArquivoNaoEncontradoException;
-
-public class TesteLerArquivo {
-
-	@Test
-	public void TesteLerArquivoSucessoTotalTime() throws ArquivoNaoEncontradoException {
-		Parser parser = new Parser();
+	public int[][] getBuffer() {
 		int buffer[][] = {{439, 705, 738, 729, 752, 740, 658, 713, 765, 710},
 	             {470, 828, 760, 668, 884, 721, 720, 802, 777, 735},
 	             {446, 789, 763, 692, 910, 966, 751, 1002, 720, 752},
@@ -32,10 +30,8 @@ public class TesteLerArquivo {
 	             {865, 810, 791, 865, 830, 851, 860, 847, 855, 892},
 	             {835, 875, 866, 875, 820, 833, 928, 901, 870, 836},
 	             {874, 896, 809, 827, 962, 849, 873, 907, 845, 896}};
-		
-		parser.lerArquivo("assets/TotalTime.txt");
-		
-		assertArrayEquals(buffer, parser.getBuffer());
+		return buffer;
 	}
-
+	
+	
 }

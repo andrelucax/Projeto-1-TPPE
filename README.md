@@ -1,13 +1,12 @@
+# Trabalho Prático 1 - Desenvolvimento Orientado a Testes (TDD)
+Desenvolvimento de parser de resultados de análises de confiabilidade.
+
 |Matrícula | Estudante |
 | -- | -- |
 | 17/0068251 | André Lucas de Sousa Pinto |
 | 17/ | Leonardo de Araujo Medeiros |
 | 17/0039251 | Lieverton Santos Silva |
 | 17/0024121 | Welison Lucas Almeida Regis |
-
-# Trabalho Prático 1 - Desenvolvimento Orientado a Testes (TDD)
-
-Desenvolvimento de parser de resultados de análises de confiabilidade.
 
 ## 1. O Parser
 

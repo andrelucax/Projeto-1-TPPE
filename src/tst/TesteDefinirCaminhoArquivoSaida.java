@@ -28,5 +28,16 @@ public class TesteDefinirCaminhoArquivoSaida {
 		parser.setCaminhoArquivoSaida("assets/");
 		assertEquals("assets/", parser.getCaminhoArquivoSaida());
 	}
+	
+	@Test
+	public void teste3DefinirCaminhoArquivoSaida() throws EscritaNaoPermitidaException {
+		parser.setCaminhoArquivoSaida(".");
+		assertEquals("./", parser.getCaminhoArquivoSaida());
+	}
+	
+	@Test(expected=EscritaNaoPermitidaException.class)
+	public void testeDefinirCaminhoArquivoSaidaExcecao() throws EscritaNaoPermitidaException {
+		parser.setCaminhoArquivoSaida("/dev/");
+	}
 
 }

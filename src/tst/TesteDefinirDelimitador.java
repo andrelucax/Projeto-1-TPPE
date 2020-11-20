@@ -28,4 +28,9 @@ public class TesteDefinirDelimitador {
 		parser.setDelimitador(",");
 		assertEquals(',', parser.getDelimitador());
 	}
+	
+	@Test(expected=DelimitadorInvalidoException.class)
+	public void testDelimitadorInvalidoException() throws DelimitadorInvalidoException {
+		parser.setDelimitador("test");
+	}
 }

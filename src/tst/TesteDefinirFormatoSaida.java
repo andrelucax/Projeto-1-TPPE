@@ -28,4 +28,10 @@ public class TesteDefinirFormatoSaida {
 		parser.setFormatoSaida(Parser.LINHA);
 		assertEquals(Parser.LINHA, parser.getFormatoSaida());
 	}
+	
+	@Test
+	public void testeDefinirFormatoSaidaGenerico() {
+		parser.setFormatoSaida(2);
+		assertEquals(2, parser.getFormatoSaida());
+	}
 }

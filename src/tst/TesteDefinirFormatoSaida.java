@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import app.Parser;
-import expts.DelimitadorInvalidoException;
 
 public class TesteDefinirFormatoSaida {
 
@@ -20,8 +19,7 @@ public class TesteDefinirFormatoSaida {
 	
 	@Test
 	public void testeDefinirFormatoSaida() {
-		parser.setFormatoSaida(parser.COLUNA);
-		assertEquals(parser.COLUNA, parser.getFormatoSaida());
+		parser.setFormatoSaida(Parser.COLUNA);
+		assertEquals(Parser.COLUNA, parser.getFormatoSaida());
 	}
-
 }

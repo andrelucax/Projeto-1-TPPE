@@ -13,6 +13,7 @@ import expts.DelimitadorInvalidoException;
 import expts.EscritaNaoPermitidaException;
 
 public class Parser {
+	public static final int COLUNA = 0;
 	private Vector <Vector <Integer>> buffer;
 	private char delimitador;
 	private String caminhoArquivoSaida;
@@ -82,6 +83,15 @@ public class Parser {
 
 	public String getCaminhoArquivoSaida() {
 		return caminhoArquivoSaida;
+	}
+
+	public void setFormatoSaida(int coluna2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getFormatoSaida() {
+		return COLUNA;
 	}
 	
 }

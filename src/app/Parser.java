@@ -42,6 +42,7 @@ public class Parser {
 		
 	}
 
+
 	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;
 	}
@@ -58,7 +59,13 @@ public class Parser {
 	public char getDelimitador() {
 		return delimitador;
 	}
-	
-	
+
+	public void setCaminhoArquivoSaida(String string) {
+		return;
+	}
+
+	public String getCaminhoArquivoSaida() {
+		return "output/";
+	}
 	
 }

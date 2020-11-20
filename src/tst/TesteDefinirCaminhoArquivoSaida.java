@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import app.Parser;
+import expts.EscritaNaoPermitidaException;
 
 public class TesteDefinirCaminhoArquivoSaida {
 	

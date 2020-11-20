@@ -19,8 +19,14 @@ public class TesteDefinirCaminhoArquivoSaida {
 	
 	@Test
 	public void testeDefinirCaminhoArquivoSaida() throws EscritaNaoPermitidaException {
-		parser.setCaminhoArquivoSaida("output/");
-		assertEquals("output/", parser.getCaminhoArquivoSaida());
+		parser.setCaminhoArquivoSaida("assets");
+		assertEquals("assets/", parser.getCaminhoArquivoSaida());
+	}
+	
+	@Test
+	public void teste2DefinirCaminhoArquivoSaida() throws EscritaNaoPermitidaException {
+		parser.setCaminhoArquivoSaida("assets/");
+		assertEquals("assets/", parser.getCaminhoArquivoSaida());
 	}
 
 }

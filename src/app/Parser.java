@@ -6,12 +6,15 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import expts.ArquivoNaoEncontradoException;
+import expts.DelimitadorInvalidoException;
 
 public class Parser {
-	Vector <Vector <Integer>> buffer;
+	private Vector <Vector <Integer>> buffer;
+	private char delimitador;
 	
 	public Parser(){
 		buffer = new Vector <Vector <Integer>>();
+		delimitador = ';';
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
@@ -42,6 +45,20 @@ public class Parser {
 	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;
 	}
+
+	public void setDelimitador(String delimitador) throws DelimitadorInvalidoException {
+		if (delimitador.length() == 1) {
+			this.delimitador = delimitador.charAt(0);
+		}
+		else {
+			throw new DelimitadorInvalidoException(delimitador);
+		}
+	}
+	
+	public char getDelimitador() {
+		return delimitador;
+	}
+	
 	
 	
 }

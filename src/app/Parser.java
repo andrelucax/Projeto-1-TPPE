@@ -2,19 +2,25 @@ package app;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Vector;
 
 import expts.ArquivoNaoEncontradoException;
 import expts.DelimitadorInvalidoException;
+import expts.EscritaNaoPermitidaException;
 
 public class Parser {
 	private Vector <Vector <Integer>> buffer;
 	private char delimitador;
+	private String caminhoArquivoSaida;
 	
 	public Parser(){
 		buffer = new Vector <Vector <Integer>>();
 		delimitador = ';';
+		caminhoArquivoSaida = "assets/";
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
@@ -42,6 +48,7 @@ public class Parser {
 		
 	}
 
+
 	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;
 	}
@@ -58,7 +65,23 @@ public class Parser {
 	public char getDelimitador() {
 		return delimitador;
 	}
-	
-	
+
+	public void setCaminhoArquivoSaida(String caminhoArquivoSaida) throws EscritaNaoPermitidaException {
+		if (!caminhoArquivoSaida.endsWith("/")) {
+			caminhoArquivoSaida += "/";
+		}
+		
+		Path caminho = Paths.get(caminhoArquivoSaida);
+		
+		if(!Files.isWritable(caminho)) {
+			throw new EscritaNaoPermitidaException(caminhoArquivoSaida);
+		}
+		
+		this.caminhoArquivoSaida = caminhoArquivoSaida;
+	}
+
+	public String getCaminhoArquivoSaida() {
+		return caminhoArquivoSaida;
+	}
 	
 }

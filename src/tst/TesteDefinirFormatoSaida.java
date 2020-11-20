@@ -18,8 +18,14 @@ public class TesteDefinirFormatoSaida {
 	}
 	
 	@Test
-	public void testeDefinirFormatoSaida() {
+	public void testeDefinirFormatoSaidaColuna() {
 		parser.setFormatoSaida(Parser.COLUNA);
 		assertEquals(Parser.COLUNA, parser.getFormatoSaida());
+	}
+	
+	@Test
+	public void testeDefinirFormatoSaidaLinha() {
+		parser.setFormatoSaida(Parser.LINHA);
+		assertEquals(Parser.LINHA, parser.getFormatoSaida());
 	}
 }

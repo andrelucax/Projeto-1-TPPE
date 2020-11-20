@@ -14,14 +14,18 @@ import expts.EscritaNaoPermitidaException;
 
 public class Parser {
 	public static final int COLUNA = 0;
+	public static final int LINHA = 1;
+	
 	private Vector <Vector <Integer>> buffer;
 	private char delimitador;
 	private String caminhoArquivoSaida;
+	private int formato;
 	
 	public Parser(){
 		buffer = new Vector <Vector <Integer>>();
 		delimitador = ';';
 		caminhoArquivoSaida = "assets/";
+		formato = COLUNA;
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
@@ -85,13 +89,13 @@ public class Parser {
 		return caminhoArquivoSaida;
 	}
 
-	public void setFormatoSaida(int coluna2) {
-		// TODO Auto-generated method stub
+	public void setFormatoSaida(int formato) {
+		this.formato = formato;
 		
 	}
 
 	public int getFormatoSaida() {
-		return COLUNA;
+		return formato;
 	}
 	
 }

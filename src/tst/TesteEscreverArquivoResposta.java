@@ -79,4 +79,61 @@ public class TesteEscreverArquivoResposta {
 		
 		assertEquals(buffer, parser.getBuffer());
 	}
+	
+	@Test
+	public void teste3EscreverArquivoResposta() throws ArquivoNaoEncontradoException, DelimitadorInvalidoException, FileNotFoundException, EscritaNaoPermitidaException {
+		parser.lerArquivo("assets/totalTime.out");
+		parser.setDelimitador(",");
+		parser.setFormatoSaida(Parser.LINHA);
+		parser.setCaminhoArquivoSaida("assets/");
+		parser.escreverArquivo();
+		
+		String path = parser.getArquivoSaida();
+		Scanner input = new Scanner(new FileReader(path));
+		Vector <Vector <Integer>> buffer = new Vector <Vector <Integer>>();
+		while(input.hasNextLine()) {
+			String data = input.nextLine();
+			String columns[] = data.split(",");
+			
+			Vector<Integer> line = new Vector<Integer>();
+			for(int i=1; i<columns.length; i++) {
+				line.add(Integer.parseInt(columns[i]));
+			}
+			buffer.add(line);
+			
+		}
+		
+		assertEquals(buffer, parser.getBuffer());
+	}
+	
+	@Test
+	public void teste4EscreverArquivoResposta() throws ArquivoNaoEncontradoException, DelimitadorInvalidoException, FileNotFoundException, EscritaNaoPermitidaException {
+		parser.lerArquivo("assets/totalTime.out");
+		parser.setDelimitador(" ");
+		parser.setFormatoSaida(Parser.COLUNA);
+		parser.setCaminhoArquivoSaida("assets/");
+		parser.escreverArquivo();
+		
+		String path = parser.getArquivoSaida();
+		Scanner input = new Scanner(new FileReader(path));
+		Vector <Vector <Integer>> buffer = new Vector <Vector <Integer>>();
+		int line_number=0;
+		while(input.hasNextLine()) {
+			String data = input.nextLine();
+			String columns[] = data.split(" ");
+			if(line_number == 0) {
+				for(String each:columns) {
+					buffer.add(new Vector<Integer>());
+				}
+			}else {
+				for(int i=0; i<columns.length; i++) {
+					buffer.elementAt(i).add(Integer.valueOf(columns[i]));
+				}
+			}
+			
+			line_number++;
+		}
+		
+		assertEquals(buffer, parser.getBuffer());
+	}
 }

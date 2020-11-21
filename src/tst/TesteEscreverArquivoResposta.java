@@ -23,7 +23,7 @@ public class TesteEscreverArquivoResposta {
 	}
 	
 	@Test
-	public void testeEscreverArquivoResposta() throws ArquivoNaoEncontradoException, DelimitadorInvalidoException {
+	public void testeEscreverArquivoResposta() throws ArquivoNaoEncontradoException, DelimitadorInvalidoException, FileNotFoundException {
 		parser.lerArquivo("assets/analysisTime.out");
 		parser.setDelimitador(";");
 		parser.setFormatoSaida(Parser.LINHA);
@@ -40,6 +40,7 @@ public class TesteEscreverArquivoResposta {
 			for(int i=1; i<columns.length; i++) {
 				line.add(Integer.parseInt(columns[i]));
 			}
+			buffer.add(line);
 			
 		}
 		

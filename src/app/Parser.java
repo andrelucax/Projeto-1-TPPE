@@ -97,5 +97,13 @@ public class Parser {
 	public int getFormatoSaida() {
 		return formato;
 	}
+
+	public void escreverArquivo() {
+				
+	}
+
+	public String getArquivoSaida() {
+		return "output/analysisTimeTab.out";
+	}
 	
 }

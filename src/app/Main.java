@@ -12,7 +12,7 @@ public class Main {
 		Parser parser = new Parser();
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.print("Digite a localização do arquivo de entrada: ");
+		System.out.print("Digite o caminho do arquivo de entrada: ");
 		String caminhoArquivoEntrada = scanner.nextLine();
 
 		try {
@@ -43,7 +43,7 @@ public class Main {
 			System.exit(-1);
 		}
 		
-		System.out.print("Digite o caminho da pasta para salvar o arquivo de saída: ");
+		System.out.print("Digite o caminho do diretório para salvar o arquivo de saída: ");
 		String caminhoArquivoSaida = scanner.nextLine();
 
 		try {

@@ -5,11 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -151,7 +149,6 @@ public class Parser {
 		    		}
 		    	}
 		    } else if(this.formato == COLUNA) {
-		    	Vector <Vector <String>> linhas = new Vector< Vector <String>>();
 		    	int max_size=0;
 		    	for(int i=0; i<buffer.size(); i++) {
 		    		if(i!=0) bufferw.write(this.delimitador);
@@ -169,8 +166,6 @@ public class Parser {
 		    		}
 		    	}
 		    	
-		    } else {
-//		    	throw new FormatoInvalidoException(this.formato);
 		    }
 		    
 		    bufferw.close();

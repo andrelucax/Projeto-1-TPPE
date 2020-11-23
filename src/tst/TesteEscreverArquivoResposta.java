@@ -65,7 +65,7 @@ public class TesteEscreverArquivoResposta {
 			String data = input.nextLine();
 			String columns[] = data.split("\t");
 			if(line_number == 0) {
-				for(String each:columns) {
+				for(int i = 0; i < columns.length; i++) {
 					buffer.add(new Vector<Integer>());
 				}
 			}else {
@@ -122,7 +122,7 @@ public class TesteEscreverArquivoResposta {
 			String data = input.nextLine();
 			String columns[] = data.split(" ");
 			if(line_number == 0) {
-				for(String each:columns) {
+				for(int i = 0; i < columns.length; i++) {
 					buffer.add(new Vector<Integer>());
 				}
 			}else {

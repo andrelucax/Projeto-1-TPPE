@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -69,10 +71,21 @@ public class Parser {
 	}
 
 	public void setDelimitador(String delimitador) throws DelimitadorInvalidoException {
+		Map<String, Character> avaliaDelimitador = new HashMap<String, Character>() {
+			private static final long serialVersionUID = 1L;
+		{
+			put("\\t", '\t');
+			put("\\b", '\b');
+			put("\\n", '\n');
+			put("\\f", '\f');
+			put("\\r", '\r');
+		}};
+		
 		if (delimitador.length() == 1) {
 			this.delimitador = delimitador.charAt(0);
-		}
-		else {
+		} else if (avaliaDelimitador.containsKey(delimitador)) {
+			this.delimitador = avaliaDelimitador.get(delimitador);
+		} else {
 			throw new DelimitadorInvalidoException(delimitador);
 		}
 	}

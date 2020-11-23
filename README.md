@@ -8,6 +8,20 @@ Desenvolvimento de parser de resultados de análises de confiabilidade.
 | 17/0039251 | Lieverton Santos Silva |
 | 17/0024121 | Welison Lucas Almeida Regis |
 
+# Notas ao professor
+
+- O trabalho foi realizado em reuniões via teams
+- Todos os integrantes participaram ativamente de todas as reuniões
+- O piloto da reunião era alternado a cada reunião
+
+# Ferramenta utilizada
+
+- O programa foi feito feito em Java com a JDK 11
+- Utilizamos a IDE do Eclipse (2020/6 - 4.16.0)
+- Os testes foram feitos utilizando o JUnit 4
+
+# Enunciado
+
 ## 1. O Parser
 
 O programa a ser desenvolvido consiste em um parser de arquivos-texto contendo valores de tempos de análise e de execução de uma ferramenta que avalia a confiabilidade de programas de software. Para cada “versão” do software avaliada (também chamada de evolução) é realizada uma quantidade de análises de confiabilidade e, para cada iteração, são anotados os tempo de análise e o tempo total de execução da ferramenta. Por exemplo, um software com 20 evoluções analisadas 10 vezes resultará em um total de 200 avaliações realizadas, cada avaliação com seus tempos anotados.

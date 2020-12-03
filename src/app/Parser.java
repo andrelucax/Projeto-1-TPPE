@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -148,10 +149,7 @@ public class Parser {
 	    this.arquivoSaida = caminhoCompletoSaida;
 	    
 	    try {
-	    	File file = new File(caminhoCompletoSaida);
-	    	if(!file.exists()) {
-	    		file.createNewFile();
-	    	}
+	    	File file = abrirArquivoSaida(caminhoCompletoSaida);
 		    
 	    	FileWriter filew = new FileWriter(file);
 	    	BufferedWriter bufferw = new BufferedWriter(filew);
@@ -191,6 +189,14 @@ public class Parser {
 	    	System.out.println(e);
 	    	throw new EscritaNaoPermitidaException(caminhoCompletoSaida);
 	    }
+	}
+
+	private File abrirArquivoSaida(String caminhoCompletoSaida) throws IOException {
+		File file = new File(caminhoCompletoSaida);
+		if(!file.exists()) {
+			file.createNewFile();
+		}
+		return file;
 	}
 
 	public String getArquivoSaida() {

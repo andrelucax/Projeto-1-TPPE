@@ -36,12 +36,7 @@ public class Parser {
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
-		Scanner input;
-		try {
-			input = new Scanner(new FileReader(path));
-		} catch (FileNotFoundException e) {
-			throw new ArquivoNaoEncontradoException(path);
-		}
+		Scanner input = abrirArquivo(path);
 
 		while(input.hasNextLine()) {
 			
@@ -65,6 +60,15 @@ public class Parser {
 		}
 	}
 
+	private Scanner abrirArquivo(String path) throws ArquivoNaoEncontradoException {
+		Scanner input;
+		try {
+			input = new Scanner(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			throw new ArquivoNaoEncontradoException(path);
+		}
+		return input;
+	}
 
 	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;

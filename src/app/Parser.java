@@ -19,19 +19,21 @@ import expts.EscritaNaoPermitidaException;
 public class Parser {
 	public static final int COLUNA = 0;
 	public static final int LINHA = 1;
-	
 	private Vector <Vector <Integer>> buffer;
 	private char delimitador;
 	private String caminhoArquivoSaida;
 	private String nomeArquivoEntrada;
 	private String arquivoSaida;
 	private int formato;
+
+	public Persistencia persistencia;
 	
 	public Parser(){
 		buffer = new Vector <Vector <Integer>>();
 		delimitador = ';';
 		caminhoArquivoSaida = "assets/";
 		formato = COLUNA;
+		persistencia = new Persistencia();
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {

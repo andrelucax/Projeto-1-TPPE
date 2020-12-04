@@ -1,10 +1,9 @@
 package app;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,33 +19,29 @@ import expts.EscritaNaoPermitidaException;
 public class Parser {
 	public static final int COLUNA = 0;
 	public static final int LINHA = 1;
-	
 	private Vector <Vector <Integer>> buffer;
 	private char delimitador;
 	private String caminhoArquivoSaida;
 	private String nomeArquivoEntrada;
 	private String arquivoSaida;
 	private int formato;
+
+	public Persistencia persistencia;
 	
 	public Parser(){
 		buffer = new Vector <Vector <Integer>>();
 		delimitador = ';';
 		caminhoArquivoSaida = "assets/";
 		formato = COLUNA;
+		persistencia = new Persistencia();
 	}
 
 	public void lerArquivo(String path) throws ArquivoNaoEncontradoException {
-		Scanner input;
-		try {
-			input = new Scanner(new FileReader(path));
-		} catch (FileNotFoundException e) {
-			throw new ArquivoNaoEncontradoException(path);
-		}
+		Scanner input = abrirArquivo(path);
 
-		while(input.hasNextLine()) {
-			
-			String data = input.nextLine();
-			
+		persistencia.iniciaLeitura(input);
+		while(persistencia.temProximaLinha()) {
+			String data = persistencia.lerArquivo();
 			if (data.startsWith("-")) {
 				Vector<Integer> row = new Vector<Integer>();
 				buffer.add(row);
@@ -55,16 +50,25 @@ public class Parser {
 				buffer.lastElement().add(Integer.parseInt(data));
 			}
 		}
+		persistencia.fechaLeitura();
 		
-		input.close();
 		int lastIndex = path.lastIndexOf('/');
 		if(lastIndex != -1) {
-			this.nomeArquivoEntrada = path.substring(lastIndex+1);
+			this.setNomeArquivoEntrada(path.substring(lastIndex+1));
 		} else {
-			this.nomeArquivoEntrada = path;
+			this.setNomeArquivoEntrada(path);
 		}
 	}
 
+	private Scanner abrirArquivo(String path) throws ArquivoNaoEncontradoException {
+		Scanner input;
+		try {
+			input = new Scanner(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			throw new ArquivoNaoEncontradoException(path);
+		}
+		return input;
+	}
 
 	public Vector <Vector <Integer>> getBuffer() {
 		return buffer;
@@ -122,7 +126,7 @@ public class Parser {
 	}
 
 	public void escreverArquivo() throws EscritaNaoPermitidaException {
-		String caminhoCompletoSaida = this.nomeArquivoEntrada;
+		String caminhoCompletoSaida = getNomeArquivoEntrada();
 
 	    int indexPonto = -1;
 	    for(int i = caminhoCompletoSaida.length() - 1; i >= 0; i--) {
@@ -140,57 +144,35 @@ public class Parser {
 	        caminhoCompletoSaida += "Tab";
 	    }
 
-	    caminhoCompletoSaida = caminhoArquivoSaida + caminhoCompletoSaida;
-	    this.arquivoSaida = caminhoCompletoSaida;
+	    caminhoCompletoSaida = getCaminhoArquivoSaida() + caminhoCompletoSaida;
+	    setArquivoSaida(caminhoCompletoSaida);
 	    
-	    try {
-	    	File file = new File(caminhoCompletoSaida);
-	    	if(!file.exists()) {
-	    		file.createNewFile();
-	    	}
-		    
-	    	FileWriter filew = new FileWriter(file);
-	    	BufferedWriter bufferw = new BufferedWriter(filew);
-		    
-		    if(this.formato == LINHA) {
-		    	for(int index = 0; index < this.buffer.size(); index++) {
-		    		if(index != 0) bufferw.newLine();
-		    		bufferw.write(Integer.toString(index+1));
-		    		for (int i=0; i < this.buffer.elementAt(index).size(); i++) {
-		    			bufferw.write(this.delimitador);
-		    			bufferw.write(Integer.toString(buffer.elementAt(index).elementAt(i)));
-		    		}
-		    	}
-		    } else if(this.formato == COLUNA) {
-		    	int max_size=0;
-		    	for(int i=0; i<buffer.size(); i++) {
-		    		if(i!=0) bufferw.write(this.delimitador);
-		    		bufferw.write(Integer.toString(i+1));
-		    		if(buffer.elementAt(i).size() > max_size) max_size = buffer.elementAt(i).size();
-		    	}
-		    	bufferw.newLine();
-		    	for(int j=0; j<max_size; j++) { // linha
-		    		if(j!=0) bufferw.newLine();
-		    		for(int i=0; i<buffer.size(); i++) {
-		    			if(i!=0) bufferw.write(this.delimitador);
-		    			if(buffer.elementAt(i).size() > j) {
-		    				bufferw.write(Integer.toString(buffer.elementAt(i).elementAt(j)));
-		    			}
-		    		}
-		    	}
-		    	
-		    }
-		    
-		    bufferw.close();
-		    filew.close();
-	    } catch (Exception e) {
-	    	System.out.println(e);
-	    	throw new EscritaNaoPermitidaException(caminhoCompletoSaida);
-	    }
+		new EscreverArquivo(this).escreve();
+		return;
+	}
+
+	public File abrirArquivoSaida(String caminhoCompletoSaida) throws IOException {
+		File file = new File(caminhoCompletoSaida);
+		if(!file.exists()) {
+			file.createNewFile();
+		}
+		return file;
 	}
 
 	public String getArquivoSaida() {
 		return arquivoSaida;
+	}
+
+	public String getNomeArquivoEntrada() {
+		return nomeArquivoEntrada;
+	}
+
+	public void setNomeArquivoEntrada(String nomeArquivoEntrada) {
+		this.nomeArquivoEntrada = nomeArquivoEntrada;
+	}
+
+	public void setArquivoSaida(String caminhoCompletoSaida) {
+		this.arquivoSaida = caminhoCompletoSaida;
 	}
 	
 }

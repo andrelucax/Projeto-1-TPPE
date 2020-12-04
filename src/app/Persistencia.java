@@ -4,10 +4,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Persistencia {
 	private FileWriter filew ;
 	private BufferedWriter bufferw;
+	private Scanner input;
 
 	public Persistencia() {
 	}
@@ -28,5 +30,21 @@ public class Persistencia {
 	public void fechaEscrita() throws IOException {  
 	    bufferw.close();
 	    filew.close();
+	}
+	
+	public void iniciaLeitura(Scanner input) {
+		this.input = input;
+	}
+	
+	public boolean temProximaLinha() {
+		return input.hasNextLine();
+	}
+	
+	public String lerArquivo() {
+		return input.nextLine();
+	}
+	
+	public void fechaLeitura() {
+		input.close();
 	}
 }
